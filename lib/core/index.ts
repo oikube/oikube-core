@@ -9,6 +9,7 @@ import { Device } from "./entities/device";
 import { seedDatabase } from "./helpers";
 import { Context } from "./resolvers/types/context";
 import { User } from "./entities/user";
+import config from "../defs/config";
 
 // register 3rd party IOC container
 TypeORM.useContainer(Container);
@@ -43,9 +44,9 @@ export async function bootstrap() {
 		const server = new ApolloServer({ schema, context });
 
 		// Start the server
-		const { url } = await server.listen(4000);
+		const { url } = await server.listen(config.PORT);
 		console.log(
-			`Server is running, GraphQL Playground available at ${url}`
+			`Oikube is running, GraphQL Playground available at ${url}`
 		);
 	} catch (err) {
 		console.error(err);
