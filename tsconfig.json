@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "declaration": true,
+        "declarationDir": "build",
+        "outDir": "build",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "strictNullChecks": true,
+        "sourceMap": true,
+        "target": "es2016",
+        "noUnusedParameters": true,
+        "noUnusedLocals": true,
+        "moduleResolution": "node",
+        "lib": ["es2016", "esnext.asynciterable"],
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
+    },
+    "include": ["lib/**/*.ts"]
+}
