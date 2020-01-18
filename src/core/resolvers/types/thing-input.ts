@@ -1,9 +1,9 @@
 import { InputType, Field } from "type-graphql";
 
-import { Device } from "../../entities/device";
+import { Thing } from "../../entities/thing";
 
 @InputType()
-export class DeviceInput implements Partial<Device> {
+export class ThingInput implements Partial<Thing> {
 	@Field()
 	name: string;
 

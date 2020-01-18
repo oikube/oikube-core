@@ -1,12 +1,18 @@
 import { ObjectType, Field } from "type-graphql";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+	Column,
+	Entity,
+	ManyToOne,
+	PrimaryGeneratedColumn,
+	BaseEntity
+} from "typeorm";
 
 import { User } from "./user";
 import { Lazy } from "../helpers";
 
 @Entity()
 @ObjectType()
-export class Device {
+export class Template extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	readonly id: number;
 
@@ -18,7 +24,11 @@ export class Device {
 	@Column({ nullable: true })
 	description?: string;
 
-	@Field(type => User)
-	@ManyToOne(type => User, { lazy: true })
-	author: Lazy<User>;
+	@Field()
+	@Column()
+	vendor: string;
+
+	@Field()
+	@Column()
+	settings: string;
 }

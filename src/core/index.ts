@@ -4,12 +4,17 @@ import { Container } from "typedi";
 import * as TypeORM from "typeorm";
 import * as TypeGraphQL from "type-graphql";
 
-import { DeviceResolver } from "./resolvers/device-resolver";
-import { Device } from "./entities/device";
+import { ThingResolver } from "./resolvers/thing-resolver";
+import { Thing } from "./entities/thing";
+import { Widget } from "./entities/widget";
 import { seedDatabase } from "./helpers";
 import { Context } from "./resolvers/types/context";
 import { User } from "./entities/user";
 import config from "../defs/config";
+import { Area } from "./entities/area";
+import { Action } from "./entities/action";
+import { Template } from "./entities/template";
+import { Automation } from "./entities/automation";
 
 // register 3rd party IOC container
 TypeORM.useContainer(Container);
@@ -20,7 +25,7 @@ export async function bootstrap() {
 		await TypeORM.createConnection({
 			type: "sqlite",
 			database: "./db.sqlite",
-			entities: [Device, User],
+			entities: [Thing, User, Widget, Area, Action, Template, Automation],
 			synchronize: true,
 			logger: "advanced-console",
 			logging: "all",
@@ -33,7 +38,7 @@ export async function bootstrap() {
 
 		// build TypeGraphQL executable schema
 		const schema = await TypeGraphQL.buildSchema({
-			resolvers: [DeviceResolver],
+			resolvers: [ThingResolver],
 			container: Container
 		});
 

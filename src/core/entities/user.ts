@@ -7,7 +7,7 @@ import {
 	BaseEntity
 } from "typeorm";
 
-import { Device } from "./device";
+import { Thing } from "./thing";
 import { Lazy } from "../helpers";
 
 @ObjectType()
@@ -27,12 +27,4 @@ export class User extends BaseEntity {
 
 	@Column()
 	password: string;
-
-	@OneToMany(
-		type => Device,
-		device => device.author,
-		{ lazy: true }
-	)
-	@Field(type => [Device])
-	recipes: Lazy<Device[]>;
 }
