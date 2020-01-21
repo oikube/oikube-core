@@ -1,14 +1,8 @@
-import { ObjectType, Field } from "type-graphql";
-import {
-	Column,
-	Entity,
-	OneToMany,
-	PrimaryGeneratedColumn,
-	BaseEntity
-} from "typeorm";
+import { ObjectType, Field } from 'type-graphql';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
 
-import { Widget } from "./widget";
-import { Lazy } from "../helpers";
+import { Widget } from './widget';
+import { Lazy } from '../helpers';
 
 @Entity()
 @ObjectType()
@@ -51,7 +45,7 @@ export class Thing extends BaseEntity {
 	@OneToMany(
 		type => Widget,
 		widget => widget.thing,
-		{ lazy: true }
+		{ lazy: true },
 	)
 	@Field(type => [Widget])
 	widgets: Lazy<Widget[]>;

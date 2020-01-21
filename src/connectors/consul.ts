@@ -1,9 +1,9 @@
-import Consul = require("consul");
-import conf from "../defs/config";
+import Consul = require('consul');
+import conf from '../defs/config';
 
 let consulClient = Consul({
 	host: conf.CONSUL,
-	promisify: true
+	promisify: true,
 });
 
 export default consulClient;

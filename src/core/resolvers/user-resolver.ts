@@ -1,19 +1,10 @@
-import {
-	Resolver,
-	Query,
-	Mutation,
-	Arg,
-	ObjectType,
-	Field,
-	UseMiddleware,
-	Ctx
-} from "type-graphql";
-import { sign } from "jsonwebtoken";
-import { hash, compare } from "bcryptjs";
-import { User } from "../entities/user";
-import { isAuth } from "../api/isAuth";
-import { MyContext } from "../api/MyContext";
-import config from "../../defs/config";
+import { Resolver, Query, Mutation, Arg, ObjectType, Field, UseMiddleware, Ctx } from 'type-graphql';
+import { sign } from 'jsonwebtoken';
+import { hash, compare } from 'bcryptjs';
+import { User } from '../entities/user';
+import { isAuth } from '../api/isAuth';
+import { MyContext } from '../api/MyContext';
+import config from '../../defs/config';
 
 @ObjectType()
 class LoginResponse {
@@ -25,7 +16,7 @@ class LoginResponse {
 export class UserResolver {
 	@Query(() => String)
 	async hello() {
-		return "Hello World";
+		return 'Hello World';
 	}
 
 	@Query(() => String)
@@ -35,18 +26,14 @@ export class UserResolver {
 	}
 
 	@Mutation(() => Boolean)
-	async Register(
-		@Arg("name") name: string,
-		@Arg("email") email: string,
-		@Arg("password") password: string
-	) {
+	async Register(@Arg('name') name: string, @Arg('email') email: string, @Arg('password') password: string) {
 		const hashedPassword = await hash(password, 13);
 		// let user = null;
 		try {
 			await User.insert({
 				name,
 				email,
-				password: hashedPassword
+				password: hashedPassword,
 			});
 		} catch (err) {
 			console.log(err);
@@ -57,26 +44,23 @@ export class UserResolver {
 	}
 
 	@Mutation(() => LoginResponse)
-	async Login(
-		@Arg("email") email: string,
-		@Arg("password") password: string
-	) {
+	async Login(@Arg('email') email: string, @Arg('password') password: string) {
 		const user = await User.findOne({ where: { email } });
 
 		if (!user) {
-			throw new Error("Could not find user");
+			throw new Error('Could not find user');
 		}
 
 		const verify = await compare(password, user.password);
 
 		if (!verify) {
-			throw new Error("Bad password");
+			throw new Error('Bad password');
 		}
 
 		return {
 			accessToken: sign({ userId: user.id }, config.JWT_SECRET, {
-				expiresIn: "15m"
-			})
+				expiresIn: '15m',
+			}),
 		};
 	}
 }

@@ -1,6 +1,6 @@
-import { InputType, Field } from "type-graphql";
+import { InputType, Field } from 'type-graphql';
 
-import { Thing } from "../../entities/thing";
+import { Thing } from '../../entities/thing';
 
 @InputType()
 export class ThingInput implements Partial<Thing> {

@@ -8,7 +8,7 @@
     "keywords": [
         "typescript"
     ],
-    "author": "",
+    "author": "the Oikube Team",
     "license": "Apache-2.0",
     "repository": {
         "type": "git",
@@ -21,11 +21,11 @@
         "start": "node build/index.js",
         "build": "gulp build",
         "watch": "gulp watch",
-        "lint": "tslint -t stylish -c tslint.json \"lib/**/*.ts\"",
+        "lint": "tslint -t stylish -c tslint.json \"src/**/*.ts\"",
         "precommit": "lint-staged",
         "prepublish": "require-npm4-to-publish",
         "prepublishOnly": "npm run build",
-        "prettify": "prettier --write \"lib/**/*.ts\""
+        "prettify": "prettier --write \"src/**/*.ts\""
     },
     "devDependencies": {
         "@types/amqplib": "^0.5.13",

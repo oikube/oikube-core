@@ -1,14 +1,8 @@
-import { Field, ID, ObjectType } from "type-graphql";
-import {
-	PrimaryGeneratedColumn,
-	Column,
-	Entity,
-	OneToMany,
-	BaseEntity
-} from "typeorm";
+import { Field, ID, ObjectType } from 'type-graphql';
+import { PrimaryGeneratedColumn, Column, Entity, OneToMany, BaseEntity } from 'typeorm';
 
-import { Thing } from "./thing";
-import { Lazy } from "../helpers";
+import { Thing } from './thing';
+import { Lazy } from '../helpers';
 
 @ObjectType()
 @Entity()
