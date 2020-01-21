@@ -1,7 +1,4 @@
-import 'reflect-metadata';
-import { Service } from 'typedi';
-
-@Service()
-export class OikubeAutomationManager {
-	startDispatching() {}
+export function OikubeAutomationService({ createHook }) {
+	createHook(OikubeAutomationService.AUTOMATIONS_INIT);
 }
+OikubeAutomationService.AUTOMATIONS_INIT = `automations/init`;

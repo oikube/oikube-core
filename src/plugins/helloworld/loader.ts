@@ -1,4 +1,4 @@
-import { OikubePlugin } from '../../index';
+import { OikubePlugin } from '../plugin';
 export class HelloWorldPlugin extends OikubePlugin {
 	onStart() {
 		this.register('HelloWorld');

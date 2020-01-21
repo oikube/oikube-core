@@ -56,6 +56,7 @@
         ]
     },
     "dependencies": {
+        "@forrestjs/hooks": "^3.9.0",
         "amqplib": "^0.5.5",
         "apollo-server": "^2.9.16",
         "bcryptjs": "^2.4.3",
@@ -68,6 +69,7 @@
         "node-fetch": "^2.6.0",
         "reflect-metadata": "^0.1.13",
         "sqlite": "^3.0.3",
+        "systemjs": "^6.1.9",
         "type-graphql": "^0.17.6",
         "typedi": "^0.8.0",
         "typeorm": "^0.2.22",

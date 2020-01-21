@@ -44,6 +44,21 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
+"@babel/runtime@^7.4.4", "@babel/runtime@^7.5.5":
+  version "7.8.3"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.8.3.tgz#0811944f73a6c926bb2ad35e918dcc1bfab279f1"
+  integrity sha512-fVHx1rzEmwB130VTkLnxR+HmxcTjGzH12LYQcFFoBwakMd3aOMD4OsRN7tGG/UOYE2ektgFrS8uACAoRk1CY0w==
+  dependencies:
+    regenerator-runtime "^0.13.2"
+
+"@forrestjs/hooks@^3.9.0":
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/@forrestjs/hooks/-/hooks-3.9.0.tgz#8669883da82cb4a8809e8b8256079e9506ca1b3d"
+  integrity sha512-DnlQ4OxvraUTAr+ulq54b/MnrxZJb/oIHC3+vq/ORnJKVN/1x7p6sn8xOLsQP1GBf/UyF65i9/qpPBcPqu7IGA==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+    "@marcopeg/dotted" "^0.2.0"
+
 "@gulp-sourcemaps/identity-map@1.X":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@gulp-sourcemaps/identity-map/-/identity-map-1.0.2.tgz#1e6fe5d8027b1f285dc0d31762f566bccd73d5a9"
@@ -60,6 +75,13 @@
   dependencies:
     normalize-path "^2.0.1"
     through2 "^2.0.3"
+
+"@marcopeg/dotted@^0.2.0":
+  version "0.2.9"
+  resolved "https://registry.yarnpkg.com/@marcopeg/dotted/-/dotted-0.2.9.tgz#f48c08daa136d89c9084b4e6b1341c6929366cce"
+  integrity sha512-3pz8jyRAFMmwYZf1RJXTrocA7hNYNgMiHeifcOb5VPaPYtB3eZ83HT//5Ij4ac50SNYeQ4b+T4TYI9GOEYUegw==
+  dependencies:
+    "@babel/runtime" "^7.4.4"
 
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
@@ -3795,6 +3817,11 @@ reflect-metadata@^0.1.13:
   version "0.1.13"
   resolved "https://registry.yarnpkg.com/reflect-metadata/-/reflect-metadata-0.1.13.tgz#67ae3ca57c972a2aa1642b10fe363fe32d49dc08"
 
+regenerator-runtime@^0.13.2:
+  version "0.13.3"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.3.tgz#7cf6a77d8f5c6f60eb73c5fc1955b2ceb01e6bf5"
+  integrity sha512-naKIZz2GQ8JWh///G7L3X6LaQUAMp2lvb1rvwwsURe/VXwD6VMfr+/1NuNw3ag8v2kY1aQ/go5SNn79O9JU7yw==
+
 regex-cache@^0.4.2:
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/regex-cache/-/regex-cache-0.4.4.tgz#75bdc58a2a1496cec48a12835bc54c8d562336dd"
@@ -4344,6 +4371,11 @@ symbol-observable@1.0.1:
 symbol-observable@^1.0.4:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
+
+systemjs@^6.1.9:
+  version "6.1.9"
+  resolved "https://registry.yarnpkg.com/systemjs/-/systemjs-6.1.9.tgz#17e5601867a9d1ee7a5dab71b050f38877d6992c"
+  integrity sha512-pmmYAaI/bk1RIPFIOrvP94DlvSyqZ5/BcAXTcUo0sKBqOc3rMuZaLsh1ofhxuIYgxzB/wDeCmG8i6RpmZj6yqA==
 
 tar@^4:
   version "4.4.13"

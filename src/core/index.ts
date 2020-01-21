@@ -1,5 +1,3 @@
-import 'reflect-metadata';
-import { Service } from 'typedi';
 import { ApolloServer } from 'apollo-server';
 import { Container } from 'typedi';
 import * as TypeORM from 'typeorm';
@@ -19,42 +17,43 @@ import { Automation } from './entities/automation';
 
 // register 3rd party IOC container
 TypeORM.useContainer(Container);
-@Service()
-export class OikubeCore {
-	async bootstrap() {
-		try {
-			// create TypeORM connection
-			await TypeORM.createConnection({
-				type: 'sqlite',
-				database: './db.sqlite',
-				entities: [Thing, User, Widget, Area, Action, Template, Automation],
-				synchronize: true,
-				logger: 'advanced-console',
-				logging: 'all',
-				dropSchema: true,
-				cache: true,
-			});
 
-			// seed database with some data
-			const { defaultUser } = await seedDatabase();
+export async function OikubeCoreService({ createHook }) {
+	try {
+		// create TypeORM connection
+		await TypeORM.createConnection({
+			type: 'sqlite',
+			database: './db.sqlite',
+			entities: [Thing, User, Widget, Area, Action, Template, Automation],
+			synchronize: true,
+			logger: 'advanced-console',
+			logging: 'all',
+			dropSchema: true,
+			cache: true,
+		});
 
-			// build TypeGraphQL executable schema
-			const schema = await TypeGraphQL.buildSchema({
-				resolvers: [ThingResolver],
-				container: Container,
-			});
+		// seed database with some data
+		const { defaultUser } = await seedDatabase();
 
-			// create mocked context
-			const context: Context = { user: defaultUser };
+		// build TypeGraphQL executable schema
+		const schema = await TypeGraphQL.buildSchema({
+			resolvers: [ThingResolver],
+			container: Container,
+		});
 
-			// Create GraphQL server
-			const server = new ApolloServer({ schema, context });
+		// create mocked context
+		const context: Context = { user: defaultUser };
 
-			// Start the server
-			const { url } = await server.listen(config.PORT);
-			console.log(`Oikube is running, GraphQL Playground available at ${url}`);
-		} catch (err) {
-			console.error(err);
-		}
+		// Create GraphQL server
+		const server = new ApolloServer({ schema, context });
+		createHook(OikubeCoreService.API_INIT);
+
+		// Start the server
+		const { url } = await server.listen(config.PORT);
+		console.log(`Oikube is running, GraphQL Playground available at ${url}`);
+	} catch (err) {
+		console.error(err);
 	}
 }
+
+OikubeCoreService.API_INIT = `api/init`;

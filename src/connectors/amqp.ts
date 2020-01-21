@@ -1,6 +1,6 @@
 import { connect, Channel, ConsumeMessage } from 'amqplib';
 import 'reflect-metadata';
-import { Service } from 'typedi';
+import { Service, Container } from 'typedi';
 
 const Topics = {
 	system: {
@@ -94,3 +94,10 @@ export class QueueManager {
 		});
 	}
 }
+
+export function OikubeQueueService({ getConfig, createHook }) {
+	const queueManager = Container.get(QueueManager);
+	queueManager.init(getConfig('RABBITMQ'));
+	createHook(OikubeQueueService.AMPQ_INIT);
+}
+OikubeQueueService.AMPQ_INIT = `amqp/init`;
