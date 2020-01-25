@@ -1,6 +1,6 @@
 {
 	"name": "oikube-core",
-	"version": "0.0.4",
+	"version": "0.1.0",
 	"description": "A personal hub written in typescript",
 	"homepage": "https://github.com/oikube/oikube-core#readme",
 	"main": "build/index.js",
