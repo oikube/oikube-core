@@ -3,13 +3,16 @@ FROM node:10-alpine
 WORKDIR /usr/src/app
 
 # Copies the package.json first for better cache on later pushes
-COPY package.json package.json
+COPY package.json yarn.lock ./
 
 # This install npm dependencies on the resin.io build server,
 # making sure to clean up the artifacts it creates in order to reduce the image size.
-RUN JOBS=MAX yarn --production
-# This will copy all files in our root to the working  directory in the container
-COPY . ./
+RUN JOBS=MAX yarn  --production
+
+# This will copy all useful files to the container
+COPY build build
+COPY  data data
+VOLUME ["/usr/src/app/data"]
 
 # server.js will run when container starts up on the device
 CMD ["npm", "start"]

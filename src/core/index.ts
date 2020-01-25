@@ -28,7 +28,7 @@ export async function OikubeCoreService({ createHook }) {
 		// create TypeORM connection
 		await TypeORM.createConnection({
 			type: 'sqlite',
-			database: './db.sqlite',
+			database: './data/db.sqlite',
 			entities: [Thing, User, Widget, Area, Action, Template, Automation, Plugin],
 			synchronize: true,
 			logger: 'advanced-console',

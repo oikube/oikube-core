@@ -68,8 +68,6 @@
 		"jsonwebtoken": "^8.5.1",
 		"mqtt": "^3.0.0",
 		"node-fetch": "^2.6.0",
-		"plugin-system": "^0.2.1",
-		"plugnplay": "^3.5.0",
 		"reflect-metadata": "^0.1.13",
 		"sqlite": "^3.0.3",
 		"type-graphql": "^0.17.6",
