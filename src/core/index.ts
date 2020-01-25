@@ -1,19 +1,24 @@
 import { ApolloServer } from 'apollo-server';
+import * as TypeGraphQL from 'type-graphql';
 import { Container } from 'typedi';
 import * as TypeORM from 'typeorm';
-import * as TypeGraphQL from 'type-graphql';
 
+import { PluginResolver } from './resolvers/plugin-resolver';
 import { ThingResolver } from './resolvers/thing-resolver';
+
+import { Action } from './entities/action';
+import { Area } from './entities/area';
+import { Automation } from './entities/automation';
+import { Plugin } from './entities/plugin';
+import { Template } from './entities/template';
 import { Thing } from './entities/thing';
+import { User } from './entities/user';
 import { Widget } from './entities/widget';
 import { seedDatabase } from './helpers';
+
 import { Context } from './resolvers/types/context';
-import { User } from './entities/user';
+
 import config from '../defs/config';
-import { Area } from './entities/area';
-import { Action } from './entities/action';
-import { Template } from './entities/template';
-import { Automation } from './entities/automation';
 
 // register 3rd party IOC container
 TypeORM.useContainer(Container);
@@ -24,11 +29,11 @@ export async function OikubeCoreService({ createHook }) {
 		await TypeORM.createConnection({
 			type: 'sqlite',
 			database: './db.sqlite',
-			entities: [Thing, User, Widget, Area, Action, Template, Automation],
+			entities: [Thing, User, Widget, Area, Action, Template, Automation, Plugin],
 			synchronize: true,
 			logger: 'advanced-console',
 			logging: 'all',
-			dropSchema: true,
+			dropSchema: false,
 			cache: true,
 		});
 
@@ -37,7 +42,7 @@ export async function OikubeCoreService({ createHook }) {
 
 		// build TypeGraphQL executable schema
 		const schema = await TypeGraphQL.buildSchema({
-			resolvers: [ThingResolver],
+			resolvers: [ThingResolver, PluginResolver],
 			container: Container,
 		});
 

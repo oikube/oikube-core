@@ -11,13 +11,17 @@ export function OikubePluginService({ createHook }) {
 			createHook(OikubePluginService.PLUGIN_PREPARE, { pluginClass: plugClass.default });
 			let item = new plugClass.default();
 			plugins.push(item);
-			item._start();
+			item._register();
 			createHook(OikubePluginService.PLUGIN_START, { plugin: item });
 		}
 	}
 	let pluginDirWatcher = watch([process.cwd() + '/build/libs/**/index.js', process.cwd() + '/build/libs/*.js']);
 	pluginDirWatcher.on('add', path => {
 		console.log('ADD FILE', path);
+		loadPlugin(path);
+	});
+	pluginDirWatcher.on('addDir', path => {
+		console.log('ADD DIR', path);
 		loadPlugin(path);
 	});
 	pluginDirWatcher.on('addDir', path => {

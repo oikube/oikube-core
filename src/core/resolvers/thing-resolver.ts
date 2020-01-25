@@ -1,8 +1,8 @@
-import { Resolver, Query, Arg, Mutation, Ctx, Int } from 'type-graphql';
+import { Arg, Ctx, Int, Mutation, Query, Resolver } from 'type-graphql';
 
 import { Thing } from '../entities/thing';
-import { ThingInput } from './types/thing-input';
 import { Context } from './types/context';
+import { ThingInput } from './types/thing-input';
 
 @Resolver(Thing)
 export class ThingResolver {
@@ -22,5 +22,8 @@ export class ThingResolver {
 			...thingInput,
 		});
 		return thing.save();
+	}
+	getThingByAddress(address: string) {
+		return Thing.findOne({ address });
 	}
 }

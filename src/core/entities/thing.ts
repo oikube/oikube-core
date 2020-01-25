@@ -1,8 +1,8 @@
-import { ObjectType, Field } from 'type-graphql';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
+import { Field, ObjectType } from 'type-graphql';
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-import { Widget } from './widget';
 import { Lazy } from '../helpers';
+import { Widget } from './widget';
 
 @Entity()
 @ObjectType()
@@ -28,19 +28,19 @@ export class Thing extends BaseEntity {
 
 	@Field()
 	@Column()
-	isGateway: boolean;
+	isGateway: boolean = false;
 
 	@Field()
 	@Column()
-	isVirtual: boolean;
+	isVirtual: boolean = false;
+
+	@Field({ nullable: true })
+	@Column({ nullable: true })
+	currentValue?: string;
 
 	@Field()
 	@Column()
-	currentValue: string;
-
-	@Field()
-	@Column()
-	lastUpdated: Date;
+	lastUpdated: Date = new Date();
 
 	@OneToMany(
 		type => Widget,
