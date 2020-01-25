@@ -1,20 +1,19 @@
-export class OikubePlugin {
+export abstract class OikubePlugin {
 	listenOnChannels: string[] = [];
-	name: string;
+	readonly name: string;
 	loop: NodeJS.Timer;
-	register(name: string) {
-		this.name = name;
-	}
+	interval: number = 1000;
 
 	_start() {
+		console.log('STARTING PLUGIN', this.name);
 		this.listenOnChannels.forEach(c => {
 			// listen to channel
 			console.log('channel', c);
 		});
 		this.onStart && this.onStart();
-		this.loop = setInterval(this.activity, 1000);
+		this.loop = setInterval(this.activity, this.interval);
 	}
-	onStart() {}
+	onStart(ctx: any): void {}
 	activity() {}
 	_stop() {
 		clearInterval(this.loop);
@@ -23,6 +22,4 @@ export class OikubePlugin {
 			console.log('channel', c);
 		});
 	}
-
-	deregister() {}
 }

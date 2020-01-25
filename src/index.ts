@@ -1,29 +1,15 @@
 import consul from './connectors/consul';
-import { OikubeQueueService } from './connectors/amqp';
 import conf from './defs/config';
-
-import { Container } from 'typedi';
-
+import { OikubeQueueService } from './connectors/amqp';
 import { OikubeCoreService } from './core';
-import { OikubePluginManager } from './plugins';
+import { OikubePluginService } from './plugins';
 import { OikubeAutomationService } from './automations';
 import { runHookApp } from '@forrestjs/hooks';
 
-function oikubeService({ createHook }) {
-	let { PLUGINS_INIT } = oikubeService;
+function oikubePostStartService() {
 	// read config
 	consul.kv.get('pippo');
-
-	// init plugins
-	const oikubePluginManager = Container.get(OikubePluginManager);
-	oikubePluginManager.loadPlugins();
-	createHook(PLUGINS_INIT);
 }
-oikubeService.AUTOMATIONS_INIT = `automations/init`;
-oikubeService.SETTINGS_INIT = `settings/init`;
-oikubeService.PLUGINS_INIT = `plugins/init`;
-oikubeService.API_INIT = `api/init`;
-oikubeService.AMQP_INIT = `amqp/init`;
 
 runHookApp({
 	// optional debug helper
@@ -36,7 +22,13 @@ runHookApp({
 	// services can do some cool stuff that features can't ;-)
 	// they boot before features, so features can count on stuff
 	// that is provided by the services.
-	services: [OikubeCoreService, OikubeQueueService, OikubeAutomationService, oikubeService],
+	services: [
+		OikubeCoreService,
+		OikubeQueueService,
+		OikubePluginService,
+		OikubeAutomationService,
+		oikubePostStartService,
+	],
 
 	// package your business values into small feature that is easy
 	// to work with.

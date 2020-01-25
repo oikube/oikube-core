@@ -1,7 +1,7 @@
 import Consul = require('consul');
 import conf from '../defs/config';
 
-let consulClient = Consul({
+const consulClient = Consul({
 	host: conf.CONSUL,
 	promisify: true,
 });

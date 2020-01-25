@@ -1,6 +1,6 @@
-import { connect, Channel, ConsumeMessage } from 'amqplib';
+import { Channel, connect, ConsumeMessage } from 'amqplib';
 import 'reflect-metadata';
-import { Service, Container } from 'typedi';
+import { Container, Service } from 'typedi';
 
 const Topics = {
 	system: {
