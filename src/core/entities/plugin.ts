@@ -21,7 +21,7 @@ export class Plugin extends BaseEntity {
 
 	@Field()
 	@Column()
-	isActive: boolean = false;
+	autoStart: boolean = true;
 
 	@Field()
 	@Column()
@@ -29,5 +29,5 @@ export class Plugin extends BaseEntity {
 
 	@Field()
 	@Column()
-	config: string = '';
+	listenOnChannels: string = '';
 }

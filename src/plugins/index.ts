@@ -2,15 +2,12 @@ import { OikubePlugin } from './plugin';
 import { watch } from 'chokidar';
 
 export function OikubePluginService({ createHook }) {
-	let plugins: OikubePlugin[] = [];
-
 	console.log('CWD', process.cwd());
 	function loadPlugin(path: string) {
 		let plugClass = require(path);
 		if (plugClass.default.prototype instanceof OikubePlugin) {
 			createHook(OikubePluginService.PLUGIN_PREPARE, { pluginClass: plugClass.default });
 			let item = new plugClass.default();
-			plugins.push(item);
 			item._register();
 			createHook(OikubePluginService.PLUGIN_START, { plugin: item });
 		}

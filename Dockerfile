@@ -10,8 +10,8 @@ COPY package.json yarn.lock ./
 RUN JOBS=MAX yarn  --production
 
 # This will copy all useful files to the container
-COPY build build
-COPY  data data
+COPY build data ./
+
 VOLUME ["/usr/src/app/data"]
 
 # server.js will run when container starts up on the device

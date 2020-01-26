@@ -2,7 +2,7 @@ import { OikubePlugin } from '../plugins/plugin';
 import { Thing } from '../core/entities/thing';
 
 export default class HelloWorldPlugin extends OikubePlugin {
-	name = 'HelloWorld';
+	name = 'helloworld';
 	vendor = 'oikube';
 	autostart = true;
 	onStart() {

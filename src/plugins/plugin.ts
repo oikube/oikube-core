@@ -1,41 +1,58 @@
 import { Plugin } from '../core/entities/plugin';
-
+const config = require('../../data/config.json');
 export abstract class OikubePlugin {
-	listenOnChannels: string[] = [];
+	readonly listenOnChannels: string = '';
 	readonly name: string;
 	readonly vendor: string;
-	readonly autostart: boolean;
-	loop: NodeJS.Timer;
-	interval: number = 1000;
-	private pluginConfig: Plugin;
+	readonly autoStart: boolean;
+	readonly defaultConfig: object;
+	isActive: boolean;
+	activityLoop: NodeJS.Timer;
+	interval: number = 10000;
+	private pluginModel: Plugin;
+	protected pluginConfig = { devices: [] };
 	_register() {
+		// find config or use default
+		this.pluginConfig = config[this.name] || this.defaultConfig;
+
 		// check wether the plugin is on db and add it if necessary
 		Plugin.findOne({ name: this.name }).then(async found => {
-			this.pluginConfig = found ? found : await Plugin.create({ name: this.name, vendor: this.vendor }).save();
-			if (this.pluginConfig.isActive || this.autostart) this._start();
+			this.pluginModel = found
+				? found
+				: await Plugin.create({
+						name: this.name,
+						vendor: this.vendor,
+						autoStart: this.autoStart,
+						listenOnChannels: this.listenOnChannels,
+				  }).save();
+			if (this.pluginModel.autoStart) this._start();
 		});
 	}
 	_deRegister() {
 		// remove a plugin
 		this._stop();
-		Plugin.delete(this.pluginConfig.id);
+		Plugin.delete(this.pluginModel.id);
 	}
 	private _start() {
-		this.pluginConfig.isActive = true;
-		this.pluginConfig.save();
+		this.isActive = true;
+		this.pluginModel.save();
 		console.log('STARTING PLUGIN', this.name);
-		this.listenOnChannels.forEach(c => {
+		this.pluginModel.listenOnChannels.split(',').forEach(c => {
 			// listen to channel
 			console.log('channel', c);
 		});
 		this.onStart && this.onStart();
-		this.loop = setInterval(this.activity, this.interval);
+		this.onAutodiscover && this.onAutodiscover();
+		this.activityLoop = setInterval(this.activity.bind(this), this.interval);
+		this.isActive = true;
 	}
 	onStart(): void {}
+	onAutodiscover(): void {}
 	activity() {}
 	_stop() {
-		clearInterval(this.loop);
-		this.listenOnChannels.forEach(c => {
+		this.isActive = false;
+		clearInterval(this.activityLoop);
+		this.pluginModel.listenOnChannels.split(',').forEach(c => {
 			// listen to channel
 			console.log('channel', c);
 		});
