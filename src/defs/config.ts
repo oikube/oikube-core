@@ -1,3 +1,17 @@
+import { safeLoad, safeDump } from 'js-yaml';
+import { readFileSync, writeFileSync } from 'fs';
+
+function readConf() {
+	try {
+		return safeLoad(readFileSync('./data/config.yml'));
+	} catch (err) {
+		return safeLoad(readFileSync('./data/config-default.yml'));
+	}
+}
+export let config = readConf;
+export function saveConf() {
+	writeFileSync('./data/config.yml', safeDump(config));
+}
 const env = 'dev';
 const conf = {
 	dev: {

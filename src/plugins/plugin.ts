@@ -1,5 +1,5 @@
 import { Plugin } from '../core/entities/plugin';
-const config = require('../../data/config.json');
+import { config } from '../defs/config';
 export abstract class OikubePlugin {
 	readonly listenOnChannels: string = '';
 	readonly name: string;

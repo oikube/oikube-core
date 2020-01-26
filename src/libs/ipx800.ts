@@ -20,7 +20,7 @@ export default class IPX800Plugin extends OikubePlugin {
 					.then(res => res.text())
 					.then(body => parseStringPromise(body))
 					.then(async content => {
-						console.log('IPX800', content.response);
+						// console.log('IPX800', content.response);
 						// add thing 'isGateway' for the device
 						const board = await Thing.upsert({
 							address,
