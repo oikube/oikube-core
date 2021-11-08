@@ -59,7 +59,7 @@
 		"@forrestjs/hooks": "^3.9.0",
 		"@types/xml2js": "^0.4.5",
 		"amqplib": "^0.5.5",
-		"apollo-server": "^2.14.2",
+		"apollo-server": "^2.25.3",
 		"bcryptjs": "^2.4.3",
 		"chokidar": "^3.3.1",
 		"consul": "^0.37.0",
